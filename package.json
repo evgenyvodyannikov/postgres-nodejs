@@ -1,0 +1,12 @@
+{
+  "name": "postgres-nodejs",
+  "version": "1.0.0",
+  "description": "evgenyvodyannikov",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "evgenyvodyannikov",
+  "license": "ISC"
+}
