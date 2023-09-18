@@ -2,13 +2,13 @@ create Table room(
     id SERIAL PRIMARY KEY,
     number SMALLINT NOT NULL,
     type VARCHAR(20),
-    is_available BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 create Table client(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL
+    last_name VARCHAR(255) NOT NULL,
+    vip_service_id SMALLINT,
 );
 
 create Table booking(
