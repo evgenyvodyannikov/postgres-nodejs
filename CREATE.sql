@@ -1,7 +1,8 @@
 create Table room(
     id SERIAL PRIMARY KEY,
     number SMALLINT NOT NULL,
-    type VARCHAR(20)
+    type VARCHAR(20),
+    is_available BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 create Table client(
