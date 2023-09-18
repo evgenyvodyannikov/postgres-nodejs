@@ -1,14 +1,12 @@
 import express from "express";
 import cors from 'cors';
+import roomRouter from "./routes/room.routes.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-app.get('/', function(req, res) {
-    res.send('test');
-});
+app.use('/api/v1', roomRouter)
 
 app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
