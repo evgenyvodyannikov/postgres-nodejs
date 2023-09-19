@@ -21,7 +21,20 @@ roomRouter.get('/AvailableRooms', async (req, res) => {
         const startDate = req.query.startDate;
         const endDate = req.query.endDate;
 
-        const query = `SELECT room_id FROM booking Where room_id = $1 And NOT (start_date BETWEEN $2 And $3) And NOT (end_date BETWEEN $2 And $3)`;
+        const query = `SELECT id
+            FROM room
+            WHERE id NOT IN (
+                SELECT DISTINCT room_id
+                FROM booking
+                WHERE room_id = $1
+                AND (
+                    (start_date BETWEEN $2 AND $3)
+                    OR (end_date BETWEEN $2 AND $3)
+                )
+                AND NOT is_cancelled
+            )
+        `;
+
         const { rows } = await pool.query(query, [roomId, startDate, endDate]);
 
         res.json(rows);

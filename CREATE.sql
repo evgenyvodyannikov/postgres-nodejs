@@ -18,6 +18,7 @@ create Table booking(
     room_id INTEGER NOT NULL,
     client_id INTEGER NOT NULL,
     is_vip_client BOOLEAN NOT NULL DEFAULT FALSE,
+    is_cancelled BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (room_id) REFERENCES room (id),
     FOREIGN KEY (client_id) REFERENCES client (id)
 );
