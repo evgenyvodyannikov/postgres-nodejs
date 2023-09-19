@@ -68,7 +68,7 @@ roomRouter.post('/book', async (req, res) => {
         const availableRooms = await getAvailableRooms(roomId, startDate, endDate);
         const isRoomAvailable = availableRooms.filter(room => room.id == roomId).length > 0;
 
-        if(!isRoomAvailable){
+        if (!isRoomAvailable) {
             res.status(406).json({ error: "Room is not available" });
             return;
         }
@@ -79,6 +79,21 @@ roomRouter.post('/book', async (req, res) => {
         const result = await pool.query(query, [startDate, endDate, roomId, clientId, isVip]);
 
         res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Error fetching rooms', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+roomRouter.patch('/unbook', async (req, res) => {
+    try {
+        const bookingId = req.body.bookingId;
+        
+        const query = `UPDATE booking SET is_cancelled=true WHERE id=$1;`;
+
+        const result = await pool.query(query, [bookingId]);
+
+        res.json(result.rows);
     } catch (error) {
         console.error('Error fetching rooms', error);
         res.status(500).json({ error: 'Internal server error' });
